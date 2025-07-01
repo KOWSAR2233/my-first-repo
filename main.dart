@@ -1,42 +1,58 @@
-
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const KawsarApp());
-}
+void main() => runApp(KawsarApp());
 
 class KawsarApp extends StatelessWidget {
-  const KawsarApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'কাউসার অ্যাপ',
-      theme: ThemeData(primarySwatch: Colors.green),
-      home: const HomePage(),
+      title: 'কাউসার',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+        fontFamily: 'Roboto',
+      ),
+      home: DashboardPage(),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class DashboardPage extends StatefulWidget {
+  @override
+  _DashboardPageState createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
+  double speed = 0;
+  double fuel = 50;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('কাউসার - গাড়ির তথ্য')),
+      appBar: AppBar(title: Text('কাউসার – স্মার্ট সেন্সর')),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            Text('🔹 গাড়ির স্পিড: ৬০ কিমি/ঘণ্টা'),
-            SizedBox(height: 10),
-            Text('🔹 পেট্রোল: ৫০%'),
-            SizedBox(height: 10),
-            Text('🔹 স্টিয়ারিং: নিয়ন্ত্রণে'),
-            SizedBox(height: 10),
-            Text('🔹 লোকেশন: ঢাকায় আছে'),
+          children: [
+            Text('স্পিডঃ ${speed.toStringAsFixed(0)} km/h',
+                style: Theme.of(context).textTheme.headline6),
+            SizedBox(height: 8),
+            LinearProgressIndicator(value: speed / 180),
+            SizedBox(height: 24),
+            Text('ফুয়েলঃ ${fuel.toStringAsFixed(0)} %',
+                style: Theme.of(context).textTheme.headline6),
+            SizedBox(height: 8),
+            LinearProgressIndicator(value: fuel / 100, color: Colors.orange),
+            Spacer(),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  speed = (speed + 10) % 180;
+                  fuel = fuel > 0 ? fuel - 5 : 100;
+                });
+              },
+              child: Text('রিফ্রেশ'),
+            )
           ],
         ),
       ),

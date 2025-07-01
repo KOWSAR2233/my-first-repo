@@ -1,14 +1,17 @@
-
 name: kawsar_car_sense
-description: কাউসারের গাড়ির তথ্য অ্যাপ
-publish_to: 'none'
+description: "কাউসার – স্মার্ট কার সেন্স অ্যাপ (বাংলা)"
+publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: ">=2.18.0 <3.0.0"
 
 dependencies:
   flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
     sdk: flutter
 
 flutter:
